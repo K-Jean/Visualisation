@@ -13,10 +13,15 @@ function preload(){
 }
 
 function setup() {
-    // put setup code here
-    createCanvas(w,h);
-    background(210);
 
+    var inp = createInput('');
+    inp.input(myInputEvent);
+
+
+    // put setup code here
+    var can = createCanvas(w,h);
+    can.position(0, inp.height);
+    background(210);
 
     console.log("Total row: ", table.getRowCount());
     console.log("Total column: ", table.getColumnCount());
@@ -110,4 +115,7 @@ function testMouseOver(x,y,rad){
         return true;
     }
     return false;
+}
+function myInputEvent() {
+    console.log('you are typing: ', this.value());
 }
