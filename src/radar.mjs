@@ -58,9 +58,11 @@ export default class {
             drawRadar(p5, Array(datapoints2.length).fill(10 * i));
         }
         drawRadarLabels(p5, datalabels);
-        p5.stroke(255, 0, 0);
-        drawRadar(p5,datapoints1);
         p5.stroke(255, 255, 0);
+        p5.fill(255, 255, 0);
         drawRadar(p5, datapoints2);
+        p5.stroke(255, 0, 0);
+        p5.fill(255, 0, 0);
+        drawRadar(p5,datapoints1);
     }
 }
