@@ -31,6 +31,17 @@ function drawRadarLabels(p5, labels) {
     p5.endShape(p5.CLOSE);
 }
 
+function drawRadarAxes(p5, n) {
+    let angle = p5.TWO_PI / n;
+    let i = 0;
+    for (let a = 0; a < p5.TWO_PI; a += angle) {
+        let sx = p5.cos(a) * 100;
+        let sy = p5.sin(a) * 100;
+        p5.line(0,0, sx, sy);
+        i++;
+    }
+}
+
 export default class {
 
     constructor(h, w, x, y) {
@@ -56,9 +67,6 @@ export default class {
         p5.stroke(0);
         p5.noFill();
         p5.translate(this.w / 2, this.h / 2);
-        for (let i = 0; i < 10; i++) {
-            drawRadar(p5, Array(datapoints2.length).fill(10 * i));
-        }
         drawRadarLabels(p5, datalabels);
         p5.stroke(255, 255, 0);
         p5.fill(255, 255, 0);
@@ -66,5 +74,11 @@ export default class {
         p5.stroke(255, 0, 0);
         p5.fill(255, 0, 0);
         drawRadar(p5,datapoints1);
+        p5.stroke(0);
+        p5.noFill();
+        for (let i = 0; i < 10; i++) {
+            drawRadar(p5, Array(datapoints2.length).fill(10 * i));
+        }
+        drawRadarAxes(p5, datapoints1.length);
     }
 }
