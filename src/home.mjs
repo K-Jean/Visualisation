@@ -19,7 +19,15 @@ function preload() {
 }
 
 function setup() {
-
+    loadTable('../data/IEEE VIS papers 1990-2018 - Main dataset.csv', 'csv', 'header', function (t) {
+        console.log(t);
+        for (let i = 0; i < 30; i++) {
+            const li = document.createElement("li");
+            li.innerText = `${t.getString(i, "Title")} -- ${t.getString(i, "Year")}`;
+            li.style.color = ["blue", "green", "red"][Math.floor(Math.random()*4)];
+            document.getElementById("works").append(li);
+        }
+    });
     createCanvas(0,0);
 
     console.log(table);
@@ -32,16 +40,16 @@ function setup() {
 
 
     var history = new History(200,800,0, 0);
-    var radar = new Radar(300,1000,0, 200);
+    var radar = new Radar(400,800,0, 200);
     var spider = new Spider(400,800,0, 400);
 
     var s1 = new p5(function(p5){
         p5.preload = function(){
             history.preload(p5);
-        }
+        };
         p5.setup = function(){
             history.setup(p5);
-        }
+        };
         p5.draw = function(){
             history.draw(p5);
         }
@@ -50,7 +58,7 @@ function setup() {
     var s2 = new p5(function(p5){
         p5.setup = function(){
             radar.setup(p5);
-        }
+        };
         p5.draw = function(){
             radar.draw(p5);
         }
@@ -61,7 +69,7 @@ function setup() {
         }
         p5.setup = function(){
             spider.setup(p5);
-        }
+        };
         p5.draw = function(){
             spider.draw(p5);
         }
