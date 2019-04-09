@@ -6,4 +6,13 @@
     border-radius: 10px;
     border: 1px solid black;
     height: 100%;
+    margin-top: 200px;
+}
+
+.spacing {
+    height: 200px;
+}
+
+body {
+    margin: 0 10%;
 }

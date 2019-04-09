@@ -43,6 +43,7 @@ function setup() {
                 const li = document.createElement("li");
                 li.innerText = `${t.getString(i, "Title")} -- ${t.getString(authorIndexes[i], "Year")}`;
                 li.style.color = ["blue", "green", "red"][Math.floor(Math.random()*3)];
+                li.classList.add("collection-item");
                 document.getElementById("works").append(li);
             }
         };
