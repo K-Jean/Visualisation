@@ -22,7 +22,7 @@ function setup() {
 
     var history = new History(200,800,0, 0);
     var radar = new Radar(300,1000,0, 200);
-    var spider = new Spider(200,200,0, 400);
+    var spider = new Spider(400,800,0, 400);
 
     var s1 = new p5(function(p5){
         p5.preload = function(){
