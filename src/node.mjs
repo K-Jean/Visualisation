@@ -1,6 +1,6 @@
 export default class {
 
-    constructor(x, y, id, anchor, diam, type, p5) {
+    constructor(x, y, id, anchor, diam, type, p5, main) {
         // ------   properties ------
         // if needed, an ID for the node
         this.id = id;
@@ -23,6 +23,8 @@ export default class {
         this.strength = 15;
         // parameter that influences the form of the function
         this.ramp = 1.0;
+
+        this.main = main;
 
         this.location = p5.createVector(x, y, 0);
 
@@ -139,9 +141,11 @@ export default class {
 
         this.pVelocity.set(this.velocity);
 
-        this.location.x += this.velocity.x;
-        this.location.y += this.velocity.y;
-        this.location.z += this.velocity.z;
+        if(!this.main){
+            this.location.x += this.velocity.x;
+            this.location.y += this.velocity.y;
+            this.location.z += this.velocity.z;
+        }
 
 
         if (this.location.x < this.minX) {

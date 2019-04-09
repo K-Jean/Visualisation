@@ -65,10 +65,10 @@ export default class {
         var c = p5.createCanvas(this.w, this.h);
         c.parent("canvas3");
 
-        this.nodes.push(new Node((this.w / 2), (this.h / 2), this.autor, true, smallSize, node, p5));
+        this.nodes.push(new Node((this.w / 2), (this.h / 2), this.autor, true, smallSize, node, p5, true));
 
         co_autors.forEach(elem => {
-            this.nodes.push(new Node((this.nodes[0].location.x + Math.random() * 100), (this.nodes[0].location.y + Math.random() * 100), elem, false, Math.random() * (60 - 25) + 25, 2, p5));
+            this.nodes.push(new Node((this.nodes[0].location.x + Math.random() * 100), (this.nodes[0].location.y + Math.random() * 100), elem, false, Math.random() * (60 - 25) + 25, 2, p5, false));
             this.addConnection(0, p5.random(shortdistance, shortdistance * distmult));
         });
     };
@@ -78,7 +78,7 @@ export default class {
         //p5.ellipse(p5.mouseX, p5.mouseY, 20, 20);
         p5.fill(255);
         p5.stroke(0);
-        p5.rect(0, 0, this.w - 2 - paddingRight, this.h - 2, 20);
+        p5.rect(0, 0, this.w - 2, this.h - 2, 20);
         p5.stroke(0, 0, 0);
 
         for (var i = 0; i < this.springs.length; i++) {
