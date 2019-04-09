@@ -24,7 +24,7 @@ function setup() {
     inp.position(0,0);
 
 
-    var history = new History(200,200,0, inp.height);
+    var history = new History(200,800,0, inp.height);
     var radar = new Radar(200,200,0, inp.height + 200);
     var spider = new Spider(200,200,0, inp.height + 400);
 
@@ -34,6 +34,9 @@ function setup() {
 
     console.log(history);
     var s1 = new p5(function(p5){
+        p5.preload = function(){
+            history.preload(p5);
+        }
         p5.setup = function(){
             history.setup(p5);
         }
@@ -64,10 +67,4 @@ function myInputEvent() {
     saveCanvas();
 }
 
-
-function draw() {
-    history.draw(this);
-}
-
 window.setup = setup;
-window.draw = draw;
