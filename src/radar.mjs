@@ -63,7 +63,8 @@ export default class {
     };
 
     draw(p5) {
-        p5.background(0, 255, 0);
+        p5.background(255);
+        p5.rect(0,0,this.w - 10,this.h-2,20);
         p5.stroke(0);
         p5.noFill();
         p5.translate(this.w / 2, this.h / 2);
