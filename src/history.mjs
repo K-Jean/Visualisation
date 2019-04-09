@@ -28,7 +28,7 @@ export default class {
         c.parent("canvas1");
         widthHistory = this.x+this.w-20-paddingRight;
         heightHistory = this.y+this.h-60;
-        startingPointX = 10;
+        startingPointX = 50;
         startingPointY = this.y+this.h-50;
         widthColonne = widthHistory/maxKeyMoments;
     }
@@ -38,7 +38,7 @@ export default class {
         //p5.ellipse(p5.mouseX, p5.mouseY, 20, 20);
         p5.fill(255);
         p5.stroke(0);
-        p5.rect(0,0,this.w-2-paddingRight,this.h-2,20);
+        p5.rect(0,0,this.w-2,this.h-2,20);
         p5.stroke(0, 0, 0);
         p5.line(startingPointX,startingPointY,startingPointX+widthHistory,startingPointY,6);
         p5.line(startingPointX,startingPointY,startingPointX,startingPointY-heightHistory,6);
