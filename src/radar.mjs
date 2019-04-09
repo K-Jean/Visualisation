@@ -1,6 +1,6 @@
-let datalabels = ["Tardis", "Time Lord", "Companion", "Master", "Gallifrey", "River Song", "Timey-Wimey", "Weeping Angels"];
-let datapoints1 = [20,50,60,10, 5, 20, 80, 50];
-let datapoints2 = [30, 50, 65, 20, 10, 30, 80, 50];
+let datalabels = ["Mechanics", "Bio", "Info", "Something", "Other", "Nothing"];
+let datapoints1 = [20,50,60,10, 5, 20];
+let datapoints2 = [30, 50, 65, 20, 10, 30];
 
 function drawRadar(p5, datapoints, rangeMin, rangeMax) {
     let angle = p5.TWO_PI / datapoints.length;
@@ -61,8 +61,10 @@ export default class {
         const d2 = p5.createInput("2019-01-01", "date");
         d1.elt.classList.add("date-input");
         d2.elt.classList.add("date-input");
-        d1.position(c.position().x + 10, c.parent().offsetTop + c.position().y + this.h / 4 - d1.elt.offsetHeight);
-        d2.position(c.position().x + 10, c.parent().offsetTop + c.position().y + this.h * 3/4 - d2.elt.offsetHeight);
+        d1.elt.style.backgroundColor = "red";
+        d2.elt.style.backgroundColor = "yellow";
+        d1.position(c.position().x + 10, 250 + c.position().y + this.h / 4 - d1.elt.offsetHeight);
+        d2.position(c.position().x + 10, 250 + c.position().y + this.h * 3/4 - d2.elt.offsetHeight);
     };
 
     draw(p5) {
