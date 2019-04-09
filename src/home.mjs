@@ -39,7 +39,7 @@ function setup() {
                 return authors[i].includes(author_name);
             });
 
-            for (let i = 0; i < 15; i++) {
+            for (let i = 0; i < Math.min(15,authorIndexes.length); i++) {
                 const li = document.createElement("li");
                 li.innerText = `${t.getString(i, "Title")} -- ${t.getString(authorIndexes[i], "Year")}`;
                 li.style.color = ["blue", "green", "red"][Math.floor(Math.random()*3)];
@@ -98,6 +98,7 @@ function setup() {
     var input =  document.querySelector("#search");
     input.addEventListener("change", (event) => {
         author_name = input.value;
+        document.querySelector("#autor").innerText = author_name;
         updateWorks(author_name);
         spider.change_autor(author_name);
     });
