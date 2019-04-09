@@ -45,8 +45,10 @@ export default class {
         c.parent("canvas2");
         const d1 = p5.createInput("2018-01-01", "date");
         const d2 = p5.createInput("2019-01-01", "date");
-        d1.position(this.x, this.y + this.h / 4);
-        d2.position(this.x, this.y + this.h * 3/4);
+        d1.elt.classList.add("date-input");
+        d2.elt.classList.add("date-input");
+        d1.position(c.position().x, c.parent().offsetTop + c.position().y + this.h / 4 - d1.elt.offsetHeight);
+        d2.position(c.position().x, c.parent().offsetTop + c.position().y + this.h * 3/4 - d2.elt.offsetHeight);
     };
 
     draw(p5) {

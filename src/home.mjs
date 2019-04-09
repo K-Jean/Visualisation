@@ -21,7 +21,7 @@ function setup() {
 
 
     var history = new History(200,800,0, 0);
-    var radar = new Radar(200,500,0, 200);
+    var radar = new Radar(300,1000,0, 200);
     var spider = new Spider(200,200,0, 400);
 
     var s1 = new p5(function(p5){
