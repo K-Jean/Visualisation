@@ -8,14 +8,22 @@ var maxTitleLength;
 var w = 200;
 var h = 200;
 
-export default function (p5) {
-    p5.setup = function () {
-        var c = p5.createCanvas(w, h);
-        c.position(0, 0);
+export default class {
+
+    constructor(h, w, x, y) {
+        this.h = h;
+        this.w = w;
+        this.x = x;
+        this.y = y;
+    }
+
+    setup(p5) {
+        var c = p5.createCanvas(this.h, this.w);
+        c.position(this.x, this.y);
     };
 
-    p5.draw = function () {
-        p5.background(255,0,0);
+    draw(p5) {
+        p5.background(255, 0, 0);
         p5.ellipse(p5.mouseX, p5.mouseY, 20, 20);
     }
 }
