@@ -12,21 +12,41 @@ var titleLength = [];
 var minTitleLength;
 var maxTitleLength;
 var splitfactor = 3;
-var autor_name;
+var author_name;
 let table;
 function preload() {
     table = loadTable("../data/authors-affiliations-cleaned-March-25-2019.csv","csv","header");
 }
 
 function setup() {
+    let updateWorks = function () {
+
+    };
     loadTable('../data/IEEE VIS papers 1990-2018 - Main dataset.csv', 'csv', 'header', function (t) {
-        console.log(t);
-        for (let i = 0; i < 30; i++) {
-            const li = document.createElement("li");
-            li.innerText = `${t.getString(i, "Title")} -- ${t.getString(i, "Year")}`;
-            li.style.color = ["blue", "green", "red"][Math.floor(Math.random()*4)];
-            document.getElementById("works").append(li);
-        }
+        updateWorks = (author_name) => {
+
+            document.getElementById("works").childNodes.forEach((child) => {
+                child.remove();
+            });
+            const authRows = t.getColumn("AuthorNames");
+            const authDRows = t.getColumn("AuthorNames-Deduped");
+            const authors = authRows.map((authors, i) => {
+                return authors.split(";").concat(authDRows[i].split(";"));
+            });
+            const authorIndexes = authors.map((authors, i) => {
+                return i;
+            }).filter((i) => {
+                return authors[i].includes(author_name);
+            });
+
+            for (let i = 0; i < 15; i++) {
+                const li = document.createElement("li");
+                li.innerText = `${t.getString(i, "Title")} -- ${t.getString(authorIndexes[i], "Year")}`;
+                li.style.color = ["blue", "green", "red"][Math.floor(Math.random()*3)];
+                document.getElementById("works").append(li);
+            }
+        };
+        updateWorks("Donna J. Cox");
     });
     createCanvas(0,0);
 
@@ -77,8 +97,9 @@ function setup() {
 
     var input =  document.querySelector("#search");
     input.addEventListener("change", (event) => {
-        autor_name = input.value;
-        spider.change_autor(autor_name);
+        author_name = input.value;
+        updateWorks(author_name);
+        spider.change_autor(author_name);
     });
 
 }
