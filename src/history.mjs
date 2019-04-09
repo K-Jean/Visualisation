@@ -85,25 +85,26 @@ export default class {
             // hovering of the icone
             xPosIcone = currentXpos+widthColonne/2;
             currentXpos += widthColonne;
-            let mouseOver = this.testMouseOver(xPosIcone,yPosIcone+taille/2,taille);
+            let mouseOver = this.testMouseOver(p5,xPosIcone,yPosIcone+taille/2,taille);
             if(mouseOver) {
                 if (historyDescriptionArray[i] !== "") {
                     p5.fill(255);
                     p5.stroke(0);
                     let hRect = 20;
                     let wRect = p5.textWidth(historyDescriptionArray[i]) + 5;
-                    p5.rect(xPosIcone, yPosIcone - taille - hRect - 10, wRect, hRect, 5);
+                    p5.rect(xPosIcone, yPosIcone - taille - hRect - 10+5, wRect, hRect, 5);
                     p5.fill(0);
                     p5.noStroke();
                     p5.textAlign(LEFT, CENTER);
-                    p5.text(historyDescriptionArray[i], xPosIcone + 2, yPosIcone - taille - hRect);
+                    p5.text(historyDescriptionArray[i], xPosIcone + 2, yPosIcone - taille - hRect+5);
                 }
             }
         }
     }
 
-    testMouseOver(x,y,rad){
-        if(dist(mouseX,mouseY,x,y)<rad){
+    testMouseOver(p5,x,y,rad){
+        //console.log("toto",dist(mouseX,mouseY,x,y),mouseX,mouseY,x,y);
+        if(dist(p5.mouseX,p5.mouseY,x,y)<rad){
             return true;
         }
         return false;
