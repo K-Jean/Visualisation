@@ -20,11 +20,14 @@ function setup() {
     var posX = windowWidth/splitfactor;
 
 
-    var history = new History(200,200,0, 0);
+    var history = new History(200,800,0, 0);
     var radar = new Radar(200,500,0, 200);
     var spider = new Spider(200,200,0, 400);
 
     var s1 = new p5(function(p5){
+        p5.preload = function(){
+            history.preload(p5);
+        }
         p5.setup = function(){
             history.setup(p5);
         }
