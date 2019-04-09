@@ -42,7 +42,7 @@ export default class {
 
     display(p5) {
         p5.push();
-        p5.noFill();
+        p5.fill(0,0,0);
         p5.stroke(255);
         this.noiseFx += this.step;
         this.noiseFy += this.step;

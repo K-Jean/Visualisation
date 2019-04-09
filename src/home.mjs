@@ -12,10 +12,21 @@ var titleLength = [];
 var minTitleLength;
 var maxTitleLength;
 var splitfactor = 3;
+var autor_name;
+let table;
+function preload() {
+    table = loadTable("../data/authors-affiliations-cleaned-March-25-2019.csv","csv","header");
+}
 
 function setup() {
 
     createCanvas(0,0);
+
+    console.log(table);
+    var autor_list = table.getColumn(2);
+    console.log(autor_list);
+    autor_list = [...new Set(autor_list)];
+    console.log(autor_list);
 
     var posX = windowWidth/splitfactor;
 
@@ -45,6 +56,9 @@ function setup() {
         }
     });
     var s3 = new p5(function(p5){
+        p5.preload = function(){
+            spider.preload(p5);
+        }
         p5.setup = function(){
             spider.setup(p5);
         }
@@ -52,16 +66,23 @@ function setup() {
             spider.draw(p5);
         }
     });
+
+    var input =  document.querySelector("#search");
+    input.addEventListener("change", (event) => {
+        autor_name = input.value;
+        spider.change_autor(autor_name);
+    });
+
 }
 
-function myInputEvent() {
-    console.log('you are typing: ', this.value());
+function myInputEvent(event) {
+    console.log('you are typing: ', event.value);
     saveCanvas();
 }
-
 
 function draw() {
 }
 
 window.setup = setup;
+window.preload = preload;
 window.draw = draw;

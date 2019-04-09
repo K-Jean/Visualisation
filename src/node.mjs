@@ -18,7 +18,7 @@ export default class {
 
         this.damping = 0.5;
         // radius of impact
-        this.radius = diam * 1.1;
+        this.radius = diam * 2.5;
         // strength: positive for attraction, negative for repulsion (default for Nodes)
         this.strength = 15;
         // parameter that influences the form of the function
@@ -32,7 +32,7 @@ export default class {
         this.displayLabel = true;
         this.anchor = anchor;
 
-        this.alpha = 50;
+        this.alpha = 150;
         this.highlight = false;
     }
 
@@ -58,11 +58,11 @@ export default class {
 
         if (this.type == 0) {
             p5.noStroke();
-            p5.fill(248, 252, 193);
+            p5.fill(91, 124, 38);
             p5.ellipse(this.location.x, this.location.y, this.diameter / 4, this.diameter / 4);
-            p5.fill(248, 252, 193, this.alpha);
+            p5.fill(91, 191, 38, this.alpha);
             p5.ellipse(this.location.x, this.location.y, this.diameter, this.diameter);
-            p5.fill(248, 252, 193);
+            p5.fill(91, 124, 38);
             if (this.displayLabel == true) {
                 p5.textSize(20)
                 p5.text(this.id, this.location.x - this.diameter / 2, this.location.y - this.diameter);
