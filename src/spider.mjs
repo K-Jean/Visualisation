@@ -13,7 +13,7 @@ export default class {
 
     setup(p5) {
         var c = p5.createCanvas(this.h, this.w);
-        c.position(this.x, this.y);
+        c.parent("canvas3");
     };
 
     draw(p5) {

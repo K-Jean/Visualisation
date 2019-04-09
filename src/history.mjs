@@ -25,7 +25,7 @@ export default class {
 
     setup(p5) {
         let c = p5.createCanvas(this.w, this.h);
-        c.position(this.x, this.y);
+        c.parent("canvas1");
         widthHistory = this.x+this.w-20-paddingRight;
         heightHistory = this.y+this.h-60;
         startingPointX = 10;

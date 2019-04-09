@@ -4,14 +4,80 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Doctor Who</title>
-    <style> body {padding: 0; margin: 0;} </style>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection"/>
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
     <script src="../libraries/p5.min.js"></script>
     <script src="../libraries/p5.dom.min.js"></script>
+    <script src="../libraries/materialize.min.js"></script>
     <script type="module" src="home.mjs"></script>
     <script type="module" src="history.mjs"></script>
     <script type="module" src="radar.mjs"></script>
     <script type="module" src="spider.mjs"></script>
 </head>
 <body>
+<div class="row">
+
+    <div class="col s4">
+        <!-- Teal page panel -->
+        <nav>
+            <div class="nav-wrapper">
+                <form>
+                    <div class="input-field">
+                        <input id="search" type="search" required>
+                        <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                        <i class="material-icons">close</i>
+                    </div>
+                </form>
+            </div>
+        </nav>
+    </div>
+
+    <div class="col s8">
+        <!-- Information content  -->
+        <div class="row valign-wrapper">
+            <div class="col s2">
+                <img class="circle responsive-img" src="https://api.adorable.io/avatars/150/abott@adorable.png"/>
+            </div>
+            <div class="col s10">
+              <span class="black-text">
+                Name : Corinne
+              </span>
+                <span class="black-text">
+                Name : Meunier
+              </span>
+                <span class="black-text">
+                Post : doctor
+              </span>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+
+    <div id="canvas" class="col s9">
+        <!-- Teal page panel -->
+        <div id="canvas1" class="row">
+
+        </div>
+        <div id="canvas2" class="row">
+
+        </div>
+        <div id="canvas3" class="row">
+
+        </div>
+    </div>
+
+    <div class="col s3">
+        <!-- Information content  -->
+    </div>
+
+</div>
 </body>
 </html>

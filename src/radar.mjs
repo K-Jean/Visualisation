@@ -42,7 +42,7 @@ export default class {
 
     setup(p5) {
         const c = p5.createCanvas(this.w, this.h);
-        c.position(this.x, this.y);
+        c.parent("canvas2");
         const d1 = p5.createInput("2018-01-01", "date");
         const d2 = p5.createInput("2019-01-01", "date");
         d1.position(this.x, this.y + this.h / 4);

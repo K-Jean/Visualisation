@@ -15,24 +15,15 @@ var splitfactor = 3;
 
 function setup() {
 
+    createCanvas(0,0);
 
     var posX = windowWidth/splitfactor;
 
 
-    var inp = createInput('');
-    inp.input(myInputEvent);
-    inp.position(0,0);
+    var history = new History(200,800,0, 0);
+    var radar = new Radar(200,500,0, 200);
+    var spider = new Spider(200,200,0, 400);
 
-
-    var history = new History(200,800,0, inp.height);
-    var radar = new Radar(200,200,0, inp.height + 200);
-    var spider = new Spider(200,200,0, inp.height + 400);
-
-    var div = createDiv();
-    div.position(posX*2,div.height);
-    div.child(createImg('https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/00/00d7051ab900532c076d12bc6bfcda24b7bfd427_full.jpg'));
-
-    console.log(history);
     var s1 = new p5(function(p5){
         p5.preload = function(){
             history.preload(p5);
@@ -44,6 +35,7 @@ function setup() {
             history.draw(p5);
         }
     });
+
     var s2 = new p5(function(p5){
         p5.setup = function(){
             radar.setup(p5);
@@ -67,4 +59,9 @@ function myInputEvent() {
     saveCanvas();
 }
 
+
+function draw() {
+}
+
 window.setup = setup;
+window.draw = draw;
