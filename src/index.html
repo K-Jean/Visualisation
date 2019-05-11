@@ -41,86 +41,77 @@
 </div>
 
 <div class="row">
-
-    <div id="canvas" class="col s7">
-        <!-- Teal page panel -->
-        <h2>Key Event</h2>
-        <p>We are trying to solve the question of what are the different key events for an author. For example we are trying to show how they move on the author list</p>
-        <p>We are going to use the date of publication of each author's papers and what their position is on the author list</p>
-        <div id="canvas1" class="row">
-
-        </div>
-        <div class="row">
-            <div class="col s4"><p>
-                <label>
-                    <input type="checkbox"/>
-                    <span>Mechanics</span>
-                </label>
-            </p></div>
-            <div class="col s4"><p>
-                <label>
-                    <input type="checkbox"/>
-                    <span>Bio</span>
-                </label>
-            </p></div>
-            <div class="col s4"><p>
-                <label>
-                    <input type="checkbox"/>
-                    <span>Info</span>
-                </label>
-            </p></div>
-            <div class="col s4"><p>
-                <label>
-                    <input type="checkbox"/>
-                    <span>Something</span>
-                </label>
-            </p></div><div class="col s4"><p>
-            <label>
-                <input type="checkbox"/>
-                <span>Other</span>
-            </label>
-        </p></div>
-            <div class="col s4"><p>
-                <label>
-                    <input type="checkbox"/>
-                    <span>Nothing</span>
-                </label>
-            </p></div>
-        </div>
-        <h2>Evolution of topic representation</h2>
-        <p>This sketch shows how a set of topics is represented among an author's papers at two different dates, which allows the user to see if an author has areas of expertise or interests and what new areas he might be exploring.</p>
-        <p>We use an author's papers from which we'll attempt to extract topics that can be filtered and displayed and their year.</p>
-        <div id="canvas2" class="row">
-
-        </div>
-        <h2>Co-authorship</h2>
-        <p>We are trying to solve the question of which are the different author who have worked with the main author,
-            furthermore we are going to display how many times they have worked together with the size of the bubbles</p>
-        <p>We are going to use the list of publications and look for each publication which our author has worked on</p>
-        <div id="canvas3" class="row">
-
-        </div>
-    </div>
-
-    <div class="col s5">
-        <!-- Information content  -->
-        <div class="row valign-wrapper">
-            <div class="col s2">
-                <img class="circle responsive-img" src="https://api.adorable.io/avatars/150/abott@adorable.png"/>
+    <div class="col s8">
+        <!--Name-->
+        <div class="col s5">
+            <!-- Information content  -->
+            <div class="row valign-wrapper">
+                <div class="col s12">
+                    <span class="black-text">
+                    Name :
+                  </span>
+                    <span id="autor" class="black-text">
+                        Donna J. Cox
+                  </span>
+                </div>
             </div>
-            <div class="col s10">
-                <span class="black-text">
-                Name :
-              </span>
-                <span id="autor" class="black-text">
-                    Donna J. Cox
-              </span>
+        </div>
+        <div class="col s7"></div>
+        <div id="canvas" class="col s12">
+            <!--
+            <div id="canvas1" class="row">
+
+            </div>
+
+            <div class="row">
+                <div class="col s4"><p>
+                    <label>
+                        <input type="checkbox"/>
+                        <span>Mechanics</span>
+                    </label>
+                </p></div>
+                <div class="col s4"><p>
+                    <label>
+                        <input type="checkbox"/>
+                        <span>Bio</span>
+                    </label>
+                </p></div>
+                <div class="col s4"><p>
+                    <label>
+                        <input type="checkbox"/>
+                        <span>Info</span>
+                    </label>
+                </p></div>
+                <div class="col s4"><p>
+                    <label>
+                        <input type="checkbox"/>
+                        <span>Something</span>
+                    </label>
+                </p></div><div class="col s4"><p>
+                <label>
+                    <input type="checkbox"/>
+                    <span>Other</span>
+                </label>
+            </p></div>
+                <div class="col s4"><p>
+                    <label>
+                        <input type="checkbox"/>
+                        <span>Nothing</span>
+                    </label>
+                </p></div>
+            </div>
+            -->
+            <div id="canvas2" class="row">
+
+            </div>
+            <div id="canvas3" class="row">
+
             </div>
         </div>
     </div>
 
-    <div class="col s5">
-        <div class="row spacing"></div>
+<!--Works-->
+    <div id="works-block" class="col s4">
         <div class="row card-panel">
             <b>Important works</b>
             <ul id="works" class="collection">
