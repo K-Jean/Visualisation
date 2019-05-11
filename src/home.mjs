@@ -38,7 +38,6 @@ function setup() {
             }).filter((i) => {
                 return authors[i].includes(author_name);
             });
-
             for (let i = 0; i < Math.min(15,authorIndexes.length); i++) {
                 const li = document.createElement("li");
                 li.innerText = `${t.getString(i, "Title")} -- ${t.getString(authorIndexes[i], "Year")}`;
