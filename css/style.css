@@ -13,6 +13,33 @@
     height: 200px;
 }
 
-body {
+#container {
     margin: 0 10%;
+    padding: 5px;
+    background-color: white;
+}
+body{
+    background-color: #00acc1;
+}
+#website-name{
+    font-weight: bold;
+    font-size: xx-large;
+}
+#website-desc{
+    font-size: large;
+    font-style: italic;
+}
+
+#logo{
+    width: 90px;
+    height: 70px;
+}
+#website-text{
+    display: inline-block;
+}
+footer {
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+    color: #fff;
 }
