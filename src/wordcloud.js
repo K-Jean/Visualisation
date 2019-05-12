@@ -61,11 +61,13 @@ class WordCloud {
     }
 
     setup(p5) {
+        this.p5 = p5;
         this.years = this.table.getColumn("Year").filter((value, index, array) => {
             return array.lastIndexOf(value) === index;
         });
         this.years.sort();
         const c = p5.createCanvas(this.w, this.h);
+        p5.noLoop();
         c.parent("canvas2");
         this.slider = document.getElementById("slider");
         this.ticks = document.getElementById("ticks");
@@ -81,10 +83,10 @@ class WordCloud {
             const rows = this.table.findRows(year, "Year");
             for (let row of rows) {
                 let authors = row.getString("AuthorNames-Deduped").split(";").concat(row.getString("AuthorNames").split(";"));
-                if(!authors.includes(author)) {
+                if (!authors.includes(author)) {
                     continue;
                 }
-                if(years.indexOf(year) === -1) {
+                if (years.indexOf(year) === -1) {
                     years.push(year);
                 }
                 let abstract = row.getString('Abstract');
@@ -92,7 +94,7 @@ class WordCloud {
                 const words = abstract.split(/(\s|\W)+/i);
                 for (const word of words) {
                     if (word.length > 3) {
-                        if (word.match(/^(either|which|while|have|were|where|them|they|their|these|those|very|also|during|thought|although|through|three|four|five|seven|eight|nine|eleven|twelve)$/i) === null) {
+                        if (word.match(/^(either|which|while|have|were|where|them|they|their|these|those|very|also|during|thought|although|through|three|four|five|seven|eight|nine|eleven|twelve|what)$/i) === null) {
                             keywords.push(word.toLowerCase());
                         }
                     }
@@ -121,7 +123,7 @@ class WordCloud {
         this.ticks.childNodes.forEach(value => {
             this.ticks.removeChild(value);
         });
-        for(const year of years) {
+        for (const year of years) {
             const option = document.createElement("option");
             option.innerHTML = year;
             this.ticks.append(option);
@@ -132,19 +134,19 @@ class WordCloud {
     }
 
     update(year) {
-        if(year === undefined || year === this.year) {
+        if (year === undefined || year === this.year) {
             return
         }
         this.year = year;
         document.getElementById("slider-label").innerText = year;
         wordCloud = [];
         let words = [];
-        for(const y in this.words) {
-            if(this.words.hasOwnProperty(y) && y <= year) {
+        for (const y in this.words) {
+            if (this.words.hasOwnProperty(y) && y <= year) {
                 words = words.concat(this.words[y]);
             }
         }
-        if(!words) {
+        if (!words) {
             return;
         }
         for (let word of words) {
@@ -162,6 +164,26 @@ class WordCloud {
                 wordCloud.push(new Word(x, y, 0, 0, word.word, word.weight));
             }
         }
+        this.p5.redraw();
+    }
+
+    isOverlapping(x, y, data, drawnWords) {
+        const wordHeight =  this.p5.map(data.weight, 0, 1, 20, 150);
+        this.p5.textSize(wordHeight);
+        const wWidth = this.p5.textWidth(data.text);
+
+        for (let i = 0; i < drawnWords.length; i++) {
+            this.p5.textSize(drawnWords[i].h);
+            const oWidth = this.p5.textWidth(drawnWords[i].text);
+
+            if (x + wWidth > drawnWords[i].x &&
+                x < drawnWords[i].x + oWidth &&
+                y + drawnWords[i].h * 0.2 > drawnWords[i].y - drawnWords[i].h * 0.7 &&
+                y - wordHeight < drawnWords[i].y) {
+                return true;
+            }
+        }
+        return false;
     }
 
     draw(p5) {
@@ -169,8 +191,7 @@ class WordCloud {
         p5.rect(0, 0, this.w - 2, this.h - 2, 20);
         p5.stroke(0);
         p5.noFill();
-        const year = this.slider.value;
-        this.update(year);
+        p5.translate(this.w / 2, this.h / 2);
         getWords().then(words => {
             p5.textAlign(p5.CENTER);
             let width = 0;
@@ -179,74 +200,29 @@ class WordCloud {
                 if (!data.text) {
                     continue;
                 }
-                const size = p5.map(data.weight, 0, 1, 50, 150);
-                p5.textSize(size);
-                width = p5.textWidth(data.text);
-                const x = p5.map(data.x, 0, 100, width + 2, this.w - 2 - width);
-                const y = p5.map(data.y, 0, 100, size + 2, this.h - 2 - size);
-                const word = Object.assign({}, data);
-                word.x = x;
-                word.y = y;
-                word.w = width;
-                word.h = size;
-                /*p5.stroke('red');
-                p5.text(word.text, word.x, word.y);*/
-                const velocity = p5.createVector(0, 0);
+                let iterations = 0;
+                const r = this.h / 2;
+                let isInCircles = false;
                 let overlap = false;
-                const newWord = Object.assign({}, word);
-                for (let other of drawnWords) {
-                    let iterations = 0;
-                    do {
-                        iterations++;
-                        //rectsIntersect(newWord.x, newWord.y, newWord.w, newWord.h, other.x, other.y, other.w, other.h)
-                        if (p5.dist(newWord.x, newWord.y, other.x, other.y) < (newWord.h + newWord.w)) {
-                            overlap = true;
-                            const df = p5.createVector(newWord.x, newWord.y);
-                            df.sub(p5.createVector(other.x, other.y));
-                            df.mult(0.2);
-                            velocity.x += df.x;
-                            velocity.y += df.y;
-                        } else {
-                            overlap = false;
-                        }
-                        if (p5.dist(0, 0, velocity.x, velocity.y) > 1) {
-                            if (newWord.x + velocity.x < this.w - 2 - word.w) {
-                                newWord.oldX = word.x;
-                                newWord.x += velocity.x;
-                            }
-                            if (newWord.y + velocity.y < this.h - 2 - word.h) {
-                                newWord.oldY = word.y;
-                                newWord.y += velocity.y;
-                            }
-                            /*p5.stroke('red');
-                            p5.text(newWord.text, newWord.x, newWord.y);*/
-                        } else {
-                            overlap = false;
-                        }
-                    } while (overlap && iterations < 100);
-                }
-                if (velocity.x > 0 || velocity.y > 0) {
-                    if (word.x + velocity.x < this.w - 2 - word.w) {
-                        word.oldX = word.x;
-                        word.x += velocity.x;
-                    }
-                    if (word.y + velocity.y < this.h - 2 - word.h) {
-                        word.oldY = word.y;
-                        word.y += velocity.y;
-                    }
-                }
-                if (word.x !== Infinity && word.y !== Infinity) {
-                    p5.stroke(0);
-                    p5.text(word.text, word.x, word.y);
-                    const padding = 10;
-                    //p5.ellipse(word.x - padding / 4, word.y - word.h / 2.5, word.w + padding, word.h * 2);
-                    drawnWords.push(word);
-                }
-                if (Math.abs(word.oldX) !== Infinity && Math.abs(word.x) === Infinity || Math.abs(word.oldY) !== Infinity && Math.abs(word.y) === Infinity) {
-                    console.log("Something went wrong", word);
-                    word.oldX = Infinity;
-                    word.oldY = Infinity;
-                }
+                let word;
+                do {
+                    iterations++;
+                    const size = p5.map(data.weight, 0, 1, 20, 150);
+                    p5.textSize(size);
+                    width = p5.textWidth(data.text);
+                    const x = p5.random(-r, r - width);
+                    const d = Math.floor(Math.sqrt(Math.pow(r, 2) - Math.pow(x, 2)));
+                    const y = p5.random(-d + size, d);
+
+                    const isInInnerCircle = (Math.pow(x + width, 2) + Math.pow(y - size, 2)) < Math.pow(r, 2);
+                    const isInOuterCircle = (Math.pow(x + width, 2) + Math.pow(y, 2)) < Math.pow(r, 2);
+                    isInCircles = isInInnerCircle && isInOuterCircle;
+                    overlap = this.isOverlapping(x, y, data, drawnWords);
+                    word = new Word(x, y, width, size, data.text, data.weight);
+                } while (iterations < 5000 && (!isInCircles || (drawnWords.length > 0 && overlap)));
+                p5.textSize(word.h);
+                p5.text(word.text, word.x, word.y);
+                drawnWords.push(word);
             }
         });
     }
