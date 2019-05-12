@@ -4,19 +4,11 @@ class Spring {
         this.toNode = tNode;
 
         this.length = len;
-        console.log(len);
         this.stiffness = 0.15;
         this.damping = 0.55;
 
-        this.noiseFx = random(500);
-        this.noiseFy = random(500);
         this.step = 0.0075;
         this.lineWeight = lineWeight;
-
-        this.c1XNoise;
-        this.c1YNoise;
-        this.c2XNoise;
-        this.c2YNoise;
     }
 
     update(p5) {
@@ -46,8 +38,6 @@ class Spring {
         p5.fill(0,0,0);
         p5.stroke(0);
         p5.strokeWeight(this.lineWeight);
-        this.noiseFx += this.step;
-        this.noiseFy += this.step;
 
         p5.line(this.fromNode.location.x, this.fromNode.location.y, this.toNode.location.x, this.toNode.location.y);
 

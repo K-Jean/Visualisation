@@ -47,9 +47,7 @@ function setup() {
     });
     createCanvas(0,0);
 
-    console.log(table);
     var autor_list = table.getColumn(2);
-    console.log(autor_list);
     autor_list = [...new Set(autor_list)];
     var autocomplete = {};
     autor_list.forEach(function(item, index, array) {

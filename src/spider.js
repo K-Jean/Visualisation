@@ -19,18 +19,9 @@
 // limitations under the License.
 */
 
-var w = 200;
-var h = 200;
-
-
-var bigSize = 60;
-var medSize = 50;
 var smallSize = 35;
 
 var node = 0;
-var desktop = 1;
-var android = 2;
-var web = 3;
 
 
 var shortdistance = 100;
@@ -47,7 +38,6 @@ class Spider {
 
         this.nodes = [];
         this.springs = [];
-        this.table = undefined;
         this.autor = "";
     }
 
@@ -62,9 +52,9 @@ class Spider {
         this.p5 = p5;
         this.autor_citation = {};
         this.co_autor = {};
-        this.table = p5.loadTable("../data/IEEE VIS papers 1990-2018 - Main dataset.csv", "csv", "header", table => {
-            for (let r = 0; r < this.table.getRowCount(); r++) {
-                let elem = this.table.getString(r,"AuthorNames-Deduped");
+        p5.loadTable("../data/IEEE VIS papers 1990-2018 - Main dataset.csv", "csv", "header", table => {
+            for (let r = 0; r < table.getRowCount(); r++) {
+                let elem = table.getString(r,"AuthorNames-Deduped");
                 var list_co = elem.split(";");
                 list_co.forEach(autor => {
                     if (!this.co_autor.hasOwnProperty(autor)) {
@@ -78,18 +68,18 @@ class Spider {
                                 this.co_autor[autor][autor2].id = 0;
                             }
                             this.co_autor[autor][autor2].id += 1;
-                            this.co_autor[autor][autor2].ecrit.push(this.table.getString(r,"Title"));
+                            this.co_autor[autor][autor2].ecrit.push(table.getString(r,"Title"));
                         }
                     });
                 });
             }
         });
-        this.table2 = p5.loadTable("../data/Author_Citation.csv", "csv", "header", table => {
-            for (let r = 0; r < this.table2.getRowCount(); r++) {
-                var autors = this.table2.getString(r, 0);
+        p5.loadTable("../data/Author_Citation.csv", "csv", "header", table => {
+            for (let r = 0; r < table.getRowCount(); r++) {
+                var autors = table.getString(r, 0);
                 var list_co = autors.split(";");
                 list_co.forEach(autor => {
-                    this.autor_citation[autor] = (this.autor_citation[autor] || 0) + (parseInt(this.table2.getString(r, 1)) || 0);
+                    this.autor_citation[autor] = (this.autor_citation[autor] || 0) + (parseInt(table.getString(r, 1)) || 0);
                 })
             }
         });
@@ -102,7 +92,6 @@ class Spider {
 
         this.nodes.push(new Node((this.w / 2), (this.h / 2), this.w, this.h, this.autor, true, smallSize, node, p5, true));
 
-        console.log(this.co_autor[this.autor]);
         for (let key in this.co_autor[this.autor]) {
             this.nodes.push(new Node((this.nodes[0].location.x + Math.random() * 100), (this.nodes[0].location.y + Math.random() * 100), this.w, this.h, key, false, (this.autor_citation[key] / 2500) * 30 + 20, 2, p5, false));
             this.addConnection(0, p5.random(shortdistance, shortdistance * distmult), this.co_autor[this.autor][key].id);
@@ -117,16 +106,16 @@ class Spider {
         p5.rect(0, 0, this.w - 2, this.h - 2, 20);
         p5.stroke(0, 0, 0);
 
-        for (var i = 0; i < this.springs.length; i++) {
+        for (let i = 0; i < this.springs.length; i++) {
             this.springs[i].update(p5);
             this.springs[i].display(p5);
         }
 
-        for (var i = 0; i < this.nodes.length; i++) {
+        for (let i = 0; i < this.nodes.length; i++) {
             this.nodes[i].update(p5);
             this.nodes[i].display(p5);
 
-            for (var j = 0; j < this.nodes.length; j++) {
+            for (let j = 0; j < this.nodes.length; j++) {
                 if (i != j) this.nodes[i].attract(this.nodes[j], p5);
             }
         }
@@ -135,7 +124,7 @@ class Spider {
         p5.stroke(255);
         this.nodes.forEach(node => {
             if (node.isInside(p5.mouseX, p5.mouseY)) {
-                this.drawTooltip(p5,p5.mouseX,p5.mouseY, node);
+                this.drawTooltip(p5,5,5, node);
             }
         });
     }
@@ -144,7 +133,7 @@ class Spider {
         p5.fill(255);
         p5.stroke(0);
         let hRect = 20 + 25 * (this.co_autor[this.autor][node.id].ecrit.length + 1);
-        let wRect = p5.textWidth(node.id) + 20;//p5.textWidth(historyDescriptionArray[i]) + 5;
+        let wRect = p5.textWidth(node.id) + 20;
         this.co_autor[this.autor][node.id].ecrit.forEach((pub) => {
             wRect = Math.max(wRect, p5.textWidth(pub) + 20);
         });
