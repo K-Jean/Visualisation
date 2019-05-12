@@ -76,23 +76,23 @@ class WordCloud {
                         }
                     }
                 }
-                const weightedKeywordsPerYear = [];
-                for (const word of keywords) {
-                    let count = 0;
-                    for (let dupe of keywords) {
-                        if (dupe === word) {
-                            count++;
-                        }
-                    }
-                    const index = keywords.findIndex(value => {
-                        return value.word === word;
-                    });
-                    if (index === -1) {
-                        weightedKeywordsPerYear.push({word: word, weight: count / keywords.length, authors: authors});
+            }
+            const weightedKeywordsPerYear = [];
+            for (const word of keywords) {
+                let count = 0;
+                for (let dupe of keywords) {
+                    if (dupe === word) {
+                        count++;
                     }
                 }
-                weightedKeywords[year] = weightedKeywordsPerYear;
+                const index = keywords.findIndex(value => {
+                    return value.word === word;
+                });
+                if (index === -1) {
+                    weightedKeywordsPerYear.push({word: word, weight: count / keywords.length});
+                }
             }
+            weightedKeywords[year] = weightedKeywordsPerYear;
         }
         this.slider.min = years[0];
         this.slider.max = years[years.length - 1];
