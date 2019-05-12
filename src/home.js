@@ -37,7 +37,7 @@ function setup() {
             for (let i = 0; i < Math.min(15,authorIndexes.length); i++) {
                 const li = document.createElement("li");
                 li.innerText = `${t.getString(i, "Title")} -- ${t.getString(authorIndexes[i], "Year")}`;
-                li.style.color = ["blue", "green", "red"][Math.floor(Math.random()*3)];
+                li.style.color = "black";
                 li.classList.add("collection-item");
                 document.getElementById("works").append(li);
             }
@@ -52,7 +52,7 @@ function setup() {
     autor_list = [...new Set(autor_list)];
     var autocomplete = {};
     autor_list.forEach(function(item, index, array) {
-        autocomplete[item] = 'https://api.adorable.io/avatars/105/abott@adorable.png';
+        autocomplete[item] = '../assets/author-head.png';
     });
 
     var elems = document.querySelectorAll('.autocomplete');
@@ -66,7 +66,6 @@ function setup() {
 
 
     //var history = new History(200,800,0, 0);
-    console.log("toto",document.getElementById("canvas").offsetWidth,document.getElementById("canvas").clientWidth)
     var widthCanvas =document.getElementById("canvas").offsetWidth - 5;
     var radar = new Radar(400,widthCanvas,0, 0);
     var spider = new Spider(400,widthCanvas,0, 200);
@@ -81,7 +80,7 @@ function setup() {
         p5.draw = function(){
             history.draw(p5);
         }
-    });*/
+    });*/works
 
     var s2 = new p5(function(p5){
         p5.setup = function(){

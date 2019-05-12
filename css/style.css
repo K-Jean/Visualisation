@@ -48,3 +48,7 @@ footer {
     font-weight: bold;
     font-size: x-large;
 }
+#works{
+    max-height: 350px;
+    overflow: auto;
+}
