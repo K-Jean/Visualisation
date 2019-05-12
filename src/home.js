@@ -1,13 +1,5 @@
 var w = 200;
 var h = 200;
-var authorCount = [];
-var datarows;
-var minAuthorCount;
-var maxAuthorCount;
-var titleLength = [];
-var minTitleLength;
-var maxTitleLength;
-var splitfactor = 3;
 var author_name;
 let table;
 function preload() {
@@ -47,9 +39,7 @@ function setup() {
     });
     createCanvas(0,0);
 
-    console.log(table);
     var autor_list = table.getColumn(2);
-    console.log(autor_list);
     autor_list = [...new Set(autor_list)];
     var autocomplete = {};
     autor_list.forEach(function(item, index, array) {
@@ -62,9 +52,6 @@ function setup() {
     var input = document.getElementById( 'search' );
     var label = document.getElementById( 'label-search' ); // create new textarea
     input.parentNode.insertBefore( label, input.nextSibling );
-
-    var posX = windowWidth/splitfactor;
-
 
     var widthCanvas =document.getElementById("canvas").offsetWidth - 5;
     var wordCloud = new WordCloud(400,widthCanvas,0, 0);
@@ -103,17 +90,11 @@ function setup() {
             refreshEverything(author_name);
         }
     });
-    //updateWorks("Petra Isenberg");
 }
 
 function refreshEverything(author_name){
     document.querySelector("#autor").innerText = author_name;
     updateWorks(author_name);
-}
-
-function myInputEvent(event) {
-    console.log('you are typing: ', event.value);
-    saveCanvas();
 }
 
 function draw() {
