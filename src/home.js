@@ -66,22 +66,9 @@ function setup() {
     var posX = windowWidth/splitfactor;
 
 
-    //var history = new History(200,800,0, 0);
     var widthCanvas =document.getElementById("canvas").offsetWidth - 5;
     var wordCloud = new WordCloud(400,widthCanvas,0, 0);
     var spider = new Spider(400,widthCanvas,0, 200);
-
-    /*var s1 = new p5(function(p5){
-        p5.preload = function(){
-            history.preload(p5);
-        };
-        p5.setup = function(){
-            history.setup(p5);
-        };
-        p5.draw = function(){
-            history.draw(p5);
-        }
-    });*/works
 
     var s2 = new p5(function(p5){
         p5.preload = function() {
