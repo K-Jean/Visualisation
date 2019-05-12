@@ -14,10 +14,11 @@ function preload() {
     table = loadTable("../data/authors-affiliations-cleaned-March-25-2019.csv","csv","header");
 }
 
-function setup() {
-    let updateWorks = function () {
+let updateWorks = function () {
 
-    };
+};
+
+function setup() {
     loadTable('../data/IEEE VIS papers 1990-2018 - Main dataset.csv', 'csv', 'header', function (t) {
         updateWorks = (author_name) => {
             spider.change_autor(author_name);
@@ -91,17 +92,24 @@ function setup() {
         p5.draw = function(){
             spider.draw(p5);
         }
+        p5.mousePressed = function () {
+            spider.mousePressed(p5);
+        }
     });
 
     var input =  document.querySelector("#search");
     input.addEventListener("change", (event) => {
         author_name = input.value;
         if(autor_list.includes(author_name)){
-            document.querySelector("#autor").innerText = author_name;
-            updateWorks(author_name);
+            refreshEverything(author_name);
         }
     });
 
+}
+
+function refreshEverything(author_name){
+    document.querySelector("#autor").innerText = author_name;
+    updateWorks(author_name);
 }
 
 function myInputEvent(event) {

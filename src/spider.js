@@ -63,7 +63,6 @@ class Spider {
         this.co_autor = {};
         this.table = p5.loadTable("../data/IEEE VIS papers 1990-2018 - Main dataset.csv", "csv", "header", table => {
             var autor_list = table.getColumn("AuthorNames-Deduped");
-            var co_autors = [];
             autor_list.forEach(elem => {
                 var list_co = elem.split(";");
                 list_co.forEach(autor => {
@@ -134,5 +133,14 @@ class Spider {
 
     addConnection(index, l, lineWeight) {
         this.springs.push(new Spring(this.nodes[index], this.nodes[this.nodes.length - 1], l,lineWeight));
+    }
+
+    mousePressed(p5) {
+        // Check if mouse is inside the circle
+        this.nodes.forEach(node => {
+            if(node.isInside(p5.mouseX, p5.mouseY)){
+                refreshEverything(node.id);
+            }
+        });
     }
 }

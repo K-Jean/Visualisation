@@ -118,7 +118,12 @@ class Node {
             if (this.displayLabel) {
                 p5.textStyle(p5.BOLD);
                 p5.textSize(15);
-                p5.text(this.id.substring(0, 10), this.location.x - this.diameter  * (this.id.substring(0, 10).length / 25), this.location.y - this.diameter / 2, p5);
+                if(this.id.length > 10){
+                    p5.text(this.id.substring(0, 10) + '...', this.location.x - this.diameter  * (this.id.substring(0, 10).length / 25), this.location.y - this.diameter / 2, p5);
+                } else {
+                    p5.text(this.id, this.location.x - this.diameter  * (this.id.length / 25), this.location.y - this.diameter / 2, p5);
+                }
+
             }
         } else if (this.type == 3) {
             p5.rectMode(CENTER);
@@ -163,6 +168,11 @@ class Node {
         }
         p5.endShape();
 
+    }
+
+    isInside(x,y){
+        let d = dist(this.location.x, this.location.y, x, y);
+        return d < this.diameter;
     }
 
     update() {
