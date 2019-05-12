@@ -20,7 +20,8 @@ function setup() {
     };
     loadTable('../data/IEEE VIS papers 1990-2018 - Main dataset.csv', 'csv', 'header', function (t) {
         updateWorks = (author_name) => {
-
+            spider.change_autor(author_name);
+            wordCloud.setAuthor(author_name);
             document.getElementById("works").childNodes.forEach((child) => {
                 child.remove();
             });
@@ -42,7 +43,7 @@ function setup() {
                 document.getElementById("works").append(li);
             }
         };
-        updateWorks("Donna J. Cox");
+        //updateWorks("Donna J. Cox");
     });
     createCanvas(0,0);
 
@@ -68,7 +69,7 @@ function setup() {
     //var history = new History(200,800,0, 0);
     console.log("toto",document.getElementById("canvas").offsetWidth,document.getElementById("canvas").clientWidth)
     var widthCanvas =document.getElementById("canvas").offsetWidth - 5;
-    var radar = new Radar(400,widthCanvas,0, 0);
+    var wordCloud = new WordCloud(400,widthCanvas,0, 0);
     var spider = new Spider(400,widthCanvas,0, 200);
 
     /*var s1 = new p5(function(p5){
@@ -84,11 +85,14 @@ function setup() {
     });*/
 
     var s2 = new p5(function(p5){
+        p5.preload = function() {
+            wordCloud.preload(p5);
+        };
         p5.setup = function(){
-            radar.setup(p5);
+            wordCloud.setup(p5);
         };
         p5.draw = function(){
-            radar.draw(p5);
+            wordCloud.draw(p5);
         }
     });
     var s3 = new p5(function(p5){
@@ -109,7 +113,6 @@ function setup() {
         if(autor_list.includes(author_name)){
             document.querySelector("#autor").innerText = author_name;
             updateWorks(author_name);
-            spider.change_autor(author_name);
         }
     });
 
