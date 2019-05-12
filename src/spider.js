@@ -48,7 +48,7 @@ class Spider {
         this.nodes = [];
         this.springs = [];
         this.table = undefined;
-        this.autor = "Donna J. Cox";
+        this.autor = "";
     }
 
     change_autor(new_autor) {

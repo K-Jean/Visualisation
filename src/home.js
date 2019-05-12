@@ -44,7 +44,6 @@ function setup() {
                 document.getElementById("works").append(li);
             }
         };
-        updateWorks("Petra Isenberg");
     });
     createCanvas(0,0);
 
@@ -104,7 +103,7 @@ function setup() {
             refreshEverything(author_name);
         }
     });
-
+    //updateWorks("Petra Isenberg");
 }
 
 function refreshEverything(author_name){
