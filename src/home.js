@@ -43,7 +43,7 @@ function setup() {
                 document.getElementById("works").append(li);
             }
         };
-        //updateWorks("Donna J. Cox");
+        updateWorks("Petra Isenberg");
     });
     createCanvas(0,0);
 
