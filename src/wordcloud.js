@@ -6,7 +6,7 @@ async function getWords() {
         return a.weight - b.weight;
     });
     return wordCloud.filter((value, index) => {
-        return index < 20;
+        return index < 35;
     });
 }
 

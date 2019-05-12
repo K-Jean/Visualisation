@@ -59,6 +59,7 @@ class Spider {
     }
 
     preload(p5) {
+        this.p5 = p5;
         this.autor_citation = {};
         this.co_autor = {};
         this.table = p5.loadTable("../data/IEEE VIS papers 1990-2018 - Main dataset.csv", "csv", "header", table => {
@@ -90,8 +91,6 @@ class Spider {
     }
 
     setup(p5) {
-        this.p5 = p5;
-
         var c = p5.createCanvas(this.w, this.h);
         c.parent("canvas3");
 
