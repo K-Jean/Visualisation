@@ -1,25 +1,13 @@
 let wordCloud = [];
 let years = [];
 
-async function dlWords(p5) {
-
-}
-
 async function getWords() {
     wordCloud.sort((a, b) => {
         return a.weight - b.weight;
     });
     return wordCloud.filter((value, index) => {
-        return index < 10;
+        return index < 20;
     });
-}
-
-function rectsIntersect(x0, y0, w0, h0, x1, y1, w1, h1) {
-    const X1 = Math.max(x0 - w0, x1 - w1);
-    const X2 = Math.min(x0 + w0, x1 + w1);
-    const Y1 = Math.max(y0 - h0, y1 - h1);
-    const Y2 = Math.min(y0 + h0, y1 + h1);
-    return X1 < X2 && Y1 < Y2;
 }
 
 class Vector {
@@ -39,13 +27,6 @@ class Word {
         this.text = text;
         this.weight = weight;
     }
-
-    push(word) {
-        if (ellipseEllipse(this.x, this.y, this.w, this.h, word.x, word.y, word.w, word.h)) {
-
-        }
-        return new Vector(0, 0, 0);
-    }
 }
 
 class WordCloud {
@@ -58,6 +39,7 @@ class WordCloud {
 
     preload(p5) {
         this.table = p5.loadTable("../data/IEEE VIS papers 1990-2018 - Main dataset.csv", "csv", 'header');
+        this.stopWords = p5.loadStrings("../data/stop_words.txt");
     }
 
     setup(p5) {
@@ -71,7 +53,6 @@ class WordCloud {
         c.parent("canvas2");
         this.slider = document.getElementById("slider");
         this.ticks = document.getElementById("ticks");
-        //this.slider.style('width', `${this.w - 2}px`);
     }
 
     setAuthor(author) {
@@ -94,7 +75,7 @@ class WordCloud {
                 const words = abstract.split(/(\s|\W)+/i);
                 for (const word of words) {
                     if (word.length > 3) {
-                        if (word.match(/^(either|which|while|have|were|where|them|they|their|these|those|very|also|during|thought|although|through|three|four|five|seven|eight|nine|eleven|twelve|what)$/i) === null) {
+                        if(!this.stopWords.includes(word)) {
                             keywords.push(word.toLowerCase());
                         }
                     }
