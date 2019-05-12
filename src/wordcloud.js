@@ -1,6 +1,8 @@
-let wordCloud = [];
-let years = [];
+/*
+With insipiration from https://github.com/phildp/word-cloud
+ */
 
+let wordCloud = [];
 async function getWords() {
     wordCloud.sort((a, b) => {
         return a.weight - b.weight;
@@ -8,14 +10,6 @@ async function getWords() {
     return wordCloud.filter((value, index) => {
         return index < 35;
     });
-}
-
-class Vector {
-    constructor(x, y, z) {
-        this.x = x;
-        this.y = y;
-        this.z = z;
-    }
 }
 
 class Word {
@@ -57,7 +51,6 @@ class WordCloud {
 
     setAuthor(author) {
         const years = [];
-        this.author = author;
         const keywords = [];
         const weightedKeywords = {};
         for (let year of this.years) {

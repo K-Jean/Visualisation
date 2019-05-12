@@ -53,14 +53,9 @@ class Node {
 
         this.location = p5.createVector(x, y, 0);
 
-        this.overMe = false;
-        this.page;
-
         this.displayLabel = true;
-        this.anchor = anchor;
 
         this.alpha = 150;
-        this.highlight = false;
     }
 
     attract(theNode,p5) {
@@ -95,19 +90,6 @@ class Node {
                 p5.textSize(15);
                 p5.text(this.id, this.location.x - this.diameter, this.location.y - this.diameter);
             }
-        } else if (this.type == 1) {
-            p5.rectMode(p5.CENTER);
-            p5.noStroke();
-            p5.fill(44, 147 * 2, 167 * 2);
-            p5.rect(this.location.x, this.location.y, this.diameter / 4, this.diameter / 4);
-            p5.fill(22 * 2, 147 * 2, 167 * 2, this.alpha);
-            p5.rect(this.location.x, this.location.y, this.diameter * 2 / 3, this.diameter * 2 / 3);
-            p5.fill(22 * 2, 147 * 2, 167 * 2);
-            if (this.displayLabel) {
-                p5.textStyle(p5.BOLD);
-                p5.textSize(15);
-                p5.text(this.id, this.location.x - this.diameter, this.location.y - this.diameter);
-            }
         } else if (this.type == 2) {
             p5.noStroke();
             p5.fill(230, 120, 30);
@@ -125,19 +107,6 @@ class Node {
                 }
 
             }
-        } else if (this.type == 3) {
-            p5.rectMode(CENTER);
-            p5.noStroke();
-            p5.fill(204, 24, 100);
-            this.star(this.location.x, this.location.y, this.diameter / 3, this.diameter / 3, p5);
-            p5.fill(204, 24, 100, this.alpha + 25);
-            this.star(this.location.x, this.location.y, this.diameter * 0.8, this.diameter * 0.8, p5);
-            p5.fill(204, 24, 100);
-            if (this.displayLabel) {
-                p5.textStyle(p5.BOLD);
-                p5.textSize(10);
-                p5.text(this.id, this.location.x - this.diameter, this.location.y - this.diameter);
-            }
         }
         p5.pop();
     }
@@ -148,23 +117,6 @@ class Node {
             var xpos = x + w / 2 * p5.cos(i);
             var ypos = y + w / 2 * p5.sin(i);
             p5.vertex(xpos, ypos);
-        }
-        p5.endShape();
-
-    }
-
-    star(x, y, w, h, p5) {
-        p5.beginShape();
-        for (var i = -p5.PI / 2; i < p5.PI / 2 + 2 * p5.PI; i += 2 * p5.PI / 6) {
-            var xpos = x + 2 * w * p5.cos(i);
-            var ypos = y + 2 * w * p5.sin(i);
-            var xin1 = x + 2 * w / 3.5 * p5.cos(i);
-            var yin1 = y + 2 * w / 3.5 * p5.sin(i);
-            var xin2 = x - 2 * w / 3.5 * p5.cos(i);
-            var yin2 = y - 2 * w / 3.5 * p5.sin(i);
-            p5.curveVertex(xin2, yin2);
-            p5.curveVertex(xpos, ypos);
-            p5.curveVertex(xin1, yin1);
         }
         p5.endShape();
 
@@ -204,15 +156,6 @@ class Node {
             this.location.y = this.maxY - (this.location.y - this.maxY);
             this.velocity.y = -this.velocity.y;
         }
-        /*
-        if (this.location.z < this.minZ) {
-          this.location.z = this.minZ - (this.location.z - this.minZ);
-          this.velocity.z = -this.velocity.z;
-        }
-        if (this.location.z > this.maxZ) {
-          this.location.z = this.maxZ - (this.location.z - this.maxZ);
-          this.velocity.z = -this.velocity.z;
-        } */
 
         this.velocity.mult(1 - this.damping);
     }
