@@ -45,7 +45,7 @@ function drawRadarAxes(p5, n, rangeMin, rangeMax) {
     }
 }
 
-export default class {
+class Radar {
 
     constructor(h, w, x, y) {
         this.h = h;

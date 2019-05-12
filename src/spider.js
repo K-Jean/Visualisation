@@ -20,13 +20,6 @@
 // limitations under the License.
 */
 
-
-import Node from "./node.mjs";
-import Spring from "./spring.mjs";
-
-
-const paddingRight = 100;
-
 var w = 200;
 var h = 200;
 
@@ -44,7 +37,7 @@ var web = 3;
 var shortdistance = 50;
 var distmult = 3;
 
-export default class {
+class Spider {
 
 
     constructor(h, w, x, y) {

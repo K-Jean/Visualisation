@@ -20,7 +20,7 @@
 // limitations under the License.
 */
 
-export default class {
+class Node {
 
     constructor(x, y, id, anchor, diam, type, p5, main) {
         // ------   properties ------

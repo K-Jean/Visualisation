@@ -1,7 +1,3 @@
-import History from "./history.mjs";
-import Radar from "./radar.mjs";
-import Spider from "./spider.mjs";
-
 var w = 200;
 var h = 200;
 var authorCount = [];

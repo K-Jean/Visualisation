@@ -6,7 +6,7 @@ let startingPointY = 0;
 let widthColonne = 0;
 const paddingRight = 100;
 
-export default class {
+class History {
 
     constructor(h, w, x, y) {
         this.h = h;

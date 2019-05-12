@@ -1,4 +1,4 @@
-export default class {
+class Spring {
     constructor(fNode, tNode, len) {
         this.fromNode = fNode;
         this.toNode = tNode;
