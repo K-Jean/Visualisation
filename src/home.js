@@ -50,7 +50,17 @@ function setup() {
     var autor_list = table.getColumn(2);
     console.log(autor_list);
     autor_list = [...new Set(autor_list)];
-    console.log(autor_list);
+    var autocomplete = {};
+    autor_list.forEach(function(item, index, array) {
+        autocomplete[item] = 'https://api.adorable.io/avatars/105/abott@adorable.png';
+    });
+
+    var elems = document.querySelectorAll('.autocomplete');
+    var instances = M.Autocomplete.init(elems, {data:autocomplete, limit:10});
+
+    var input = document.getElementById( 'search' );
+    var label = document.getElementById( 'label-search' ); // create new textarea
+    input.parentNode.insertBefore( label, input.nextSibling );
 
     var posX = windowWidth/splitfactor;
 
@@ -96,9 +106,11 @@ function setup() {
     var input =  document.querySelector("#search");
     input.addEventListener("change", (event) => {
         author_name = input.value;
-        document.querySelector("#autor").innerText = author_name;
-        updateWorks(author_name);
-        spider.change_autor(author_name);
+        if(autor_list.includes(author_name)){
+            document.querySelector("#autor").innerText = author_name;
+            updateWorks(author_name);
+            spider.change_autor(author_name);
+        }
     });
 
 }
