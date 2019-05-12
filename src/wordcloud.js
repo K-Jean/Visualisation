@@ -46,6 +46,9 @@ class WordCloud {
         p5.noLoop();
         c.parent("canvas2");
         this.slider = document.getElementById("slider");
+        this.slider.addEventListener("change", () => {
+            this.update(this.slider.value);
+        });
         this.ticks = document.getElementById("ticks");
     }
 
