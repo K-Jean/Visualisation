@@ -1,5 +1,5 @@
 class Spring {
-    constructor(fNode, tNode, len) {
+    constructor(fNode, tNode, len, lineWeight) {
         this.fromNode = fNode;
         this.toNode = tNode;
 
@@ -11,6 +11,7 @@ class Spring {
         this.noiseFx = random(500);
         this.noiseFy = random(500);
         this.step = 0.0075;
+        this.lineWeight = lineWeight;
 
         this.c1XNoise;
         this.c1YNoise;
@@ -43,19 +44,13 @@ class Spring {
     display(p5) {
         p5.push();
         p5.fill(0,0,0);
-        p5.stroke(255);
+        p5.stroke(0);
+        p5.strokeWeight(this.lineWeight);
         this.noiseFx += this.step;
         this.noiseFy += this.step;
 
-        this.c1XNoise = p5.map(p5.noise(this.noiseFx, 10, 20), 0, 1, -150, 150);
-        this.c1YNoise = p5.map(p5.noise(this.noiseFy, 2, 87), 0, 1, -150, 150);
-        this.c2XNoise = p5.map(p5.noise(this.noiseFx, 5, 12), 0, 1, -150, 150);
-        this.c2YNoise = p5.map(p5.noise(this.noiseFy, 15, 30), 0, 1, -150, 150);
+        p5.line(this.fromNode.location.x, this.fromNode.location.y, this.toNode.location.x, this.toNode.location.y);
 
-        p5.curve(this.fromNode.location.x + this.c1XNoise, this.fromNode.location.y + this.c1YNoise,
-            this.fromNode.location.x, this.fromNode.location.y,
-            this.toNode.location.x, this.toNode.location.y,
-            this.toNode.location.x + this.c2XNoise, this.toNode.location.y + this.c2YNoise);
         p5.pop();
     }
 }

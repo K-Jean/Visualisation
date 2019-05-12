@@ -22,7 +22,7 @@
 
 class Node {
 
-    constructor(x, y, id, anchor, diam, type, p5, main) {
+    constructor(x, y, maxX, maxY, id, anchor, diam, type, p5, main) {
         // ------   properties ------
         // if needed, an ID for the node
         this.id = id;
@@ -30,9 +30,9 @@ class Node {
         this.type = type || 0;
 
         this.minX = 0;
-        this.maxX = 800;
-        this.minY = 0;
-        this.maxY = 400;
+        this.maxX = maxX;
+        this.minY = diam;
+        this.maxY = maxY;
         this.maxVelocity = 2;
 
         this.velocity = p5.createVector(0, 0, 0);
@@ -40,7 +40,10 @@ class Node {
 
         this.damping = 0.5;
         // radius of impact
-        this.radius = diam * 2.5;
+        this.radius = diam * 10;
+        if(main){
+            this.radius = diam * 15;
+        }
         // strength: positive for attraction, negative for repulsion (default for Nodes)
         this.strength = 15;
         // parameter that influences the form of the function
@@ -87,9 +90,10 @@ class Node {
             p5.fill(91, 191, 38, this.alpha);
             p5.ellipse(this.location.x, this.location.y, this.diameter, this.diameter);
             p5.fill(91, 124, 38);
-            if (this.displayLabel == true) {
-                p5.textSize(20)
-                p5.text(this.id, this.location.x - this.diameter / 2, this.location.y - this.diameter);
+            if (this.displayLabel) {
+                p5.textStyle(p5.BOLD);
+                p5.textSize(15);
+                p5.text(this.id, this.location.x - this.diameter, this.location.y - this.diameter);
             }
         } else if (this.type == 1) {
             p5.rectMode(p5.CENTER);
@@ -99,9 +103,10 @@ class Node {
             p5.fill(22 * 2, 147 * 2, 167 * 2, this.alpha);
             p5.rect(this.location.x, this.location.y, this.diameter * 2 / 3, this.diameter * 2 / 3);
             p5.fill(22 * 2, 147 * 2, 167 * 2);
-            if (this.displayLabel == true) {
-                p5.textSize(20)
-                p5.text(this.id, this.location.x - this.diameter / 2, this.location.y - this.diameter);
+            if (this.displayLabel) {
+                p5.textStyle(p5.BOLD);
+                p5.textSize(15);
+                p5.text(this.id, this.location.x - this.diameter, this.location.y - this.diameter);
             }
         } else if (this.type == 2) {
             p5.noStroke();
@@ -110,9 +115,10 @@ class Node {
             p5.fill(230, 120, 30, this.alpha + 25);
             this.tri(this.location.x, this.location.y, this.diameter, this.diameter, p5);
             p5.fill(230, 120, 30);
-            if (this.displayLabel == true) {
-                p5.textSize(20)
-                p5.text(this.id, this.location.x - this.diameter / 2, this.location.y - this.diameter, p5);
+            if (this.displayLabel) {
+                p5.textStyle(p5.BOLD);
+                p5.textSize(15);
+                p5.text(this.id.substring(0, 10), this.location.x - this.diameter  * (this.id.substring(0, 10).length / 25), this.location.y - this.diameter / 2, p5);
             }
         } else if (this.type == 3) {
             p5.rectMode(CENTER);
@@ -122,9 +128,10 @@ class Node {
             p5.fill(204, 24, 100, this.alpha + 25);
             this.star(this.location.x, this.location.y, this.diameter * 0.8, this.diameter * 0.8, p5);
             p5.fill(204, 24, 100);
-            if (this.displayLabel == true) {
-                p5.textSize(20)
-                p5.text(this.id, this.location.x - this.diameter / 2, this.location.y - this.diameter);
+            if (this.displayLabel) {
+                p5.textStyle(p5.BOLD);
+                p5.textSize(10);
+                p5.text(this.id, this.location.x - this.diameter, this.location.y - this.diameter);
             }
         }
         p5.pop();

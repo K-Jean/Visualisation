@@ -69,7 +69,7 @@ function setup() {
     //var history = new History(200,800,0, 0);
     var widthCanvas =document.getElementById("canvas").offsetWidth - 5;
     var wordCloud = new WordCloud(400,widthCanvas,0, 0);
-    var spider = new Spider(400,widthCanvas,0, 200);
+    var spider = new Spider(700,document.getElementById("container").clientWidth - 30,0, 200);
 
     /*var s1 = new p5(function(p5){
         p5.preload = function(){
