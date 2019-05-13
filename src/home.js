@@ -3,7 +3,7 @@ var h = 200;
 var author_name;
 let table;
 function preload() {
-    table = loadTable("../data/authors-affiliations-cleaned-March-25-2019.csv","csv","header");
+    table = loadTable("data/authors-affiliations-cleaned-March-25-2019.csv","csv","header");
 }
 
 let updateWorks = function () {
@@ -11,7 +11,7 @@ let updateWorks = function () {
 };
 
 function setup() {
-    loadTable('../data/IEEE VIS papers 1990-2018 - Main dataset.csv', 'csv', 'header', function (t) {
+    loadTable('data/IEEE VIS papers 1990-2018 - Main dataset.csv', 'csv', 'header', function (t) {
         updateWorks = (author_name) => {
             spider.change_autor(author_name);
             wordCloud.setAuthor(author_name);
@@ -43,7 +43,7 @@ function setup() {
     autor_list = [...new Set(autor_list)];
     var autocomplete = {};
     autor_list.forEach(function(item, index, array) {
-        autocomplete[item] = '../assets/author-head.png';
+        autocomplete[item] = 'assets/author-head.png';
     });
 
     var elems = document.querySelectorAll('.autocomplete');

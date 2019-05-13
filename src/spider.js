@@ -52,7 +52,7 @@ class Spider {
         this.p5 = p5;
         this.autor_citation = {};
         this.co_autor = {};
-        p5.loadTable("../data/IEEE VIS papers 1990-2018 - Main dataset.csv", "csv", "header", table => {
+        p5.loadTable("data/IEEE VIS papers 1990-2018 - Main dataset.csv", "csv", "header", table => {
             for (let r = 0; r < table.getRowCount(); r++) {
                 let elem = table.getString(r,"AuthorNames-Deduped");
                 var list_co = elem.split(";");
@@ -74,7 +74,7 @@ class Spider {
                 });
             }
         });
-        p5.loadTable("../data/Author_Citation.csv", "csv", "header", table => {
+        p5.loadTable("data/Author_Citation.csv", "csv", "header", table => {
             for (let r = 0; r < table.getRowCount(); r++) {
                 var autors = table.getString(r, 0);
                 var list_co = autors.split(";");

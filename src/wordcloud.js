@@ -32,8 +32,8 @@ class WordCloud {
     }
 
     preload(p5) {
-        this.table = p5.loadTable("../data/IEEE VIS papers 1990-2018 - Main dataset.csv", "csv", 'header');
-        this.stopWords = p5.loadStrings("../data/stop_words.txt");
+        this.table = p5.loadTable("data/IEEE VIS papers 1990-2018 - Main dataset.csv", "csv", 'header');
+        this.stopWords = p5.loadStrings("data/stop_words.txt");
     }
 
     setup(p5) {
