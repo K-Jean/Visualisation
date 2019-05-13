@@ -130,22 +130,24 @@ class Spider {
     }
 
     drawTooltip(p5, x, y, node) {
-        p5.fill(255);
-        p5.stroke(0);
-        let hRect = 20 + 25 * (this.co_autor[this.autor][node.id].ecrit.length + 1);
-        let wRect = p5.textWidth(node.id) + 20;
-        this.co_autor[this.autor][node.id].ecrit.forEach((pub) => {
-            wRect = Math.max(wRect, p5.textWidth(pub) + 20);
-        });
-        p5.rect(x + 10, y + 5, wRect, hRect, 5);
-        p5.fill(0);
-        p5.noStroke();
-        p5.textAlign(p5.LEFT, p5.CENTER);
-        p5.text(node.id, x + wRect / 2 - p5.textWidth(node.id), y + 25);
-        this.co_autor[this.autor][node.id].ecrit.forEach((pub,index) => {
-            p5.text(pub, x + 20, y + 25 * (index + 2));
-            wRect = Math.max(wRect, p5.textWidth(pub) + 20);
-        });
+        if(this.co_autor[this.autor].hasOwnProperty(node.id)) {
+            p5.fill(255);
+            p5.stroke(0);
+            let hRect = 20 + 25 * (this.co_autor[this.autor][node.id].ecrit.length + 1);
+            let wRect = p5.textWidth(node.id) + 20;
+            this.co_autor[this.autor][node.id].ecrit.forEach((pub) => {
+                wRect = Math.max(wRect, p5.textWidth(pub) + 20);
+            });
+            p5.rect(x + 10, y + 5, wRect, hRect, 5);
+            p5.fill(0);
+            p5.noStroke();
+            p5.textAlign(p5.LEFT, p5.CENTER);
+            p5.text(node.id, x + wRect / 2 - p5.textWidth(node.id), y + 25);
+            this.co_autor[this.autor][node.id].ecrit.forEach((pub, index) => {
+                p5.text(pub, x + 20, y + 25 * (index + 2));
+                wRect = Math.max(wRect, p5.textWidth(pub) + 20);
+            });
+        }
     }
 
     addConnection(index, l, lineWeight) {
