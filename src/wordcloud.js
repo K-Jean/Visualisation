@@ -56,7 +56,11 @@ class WordCloud {
         const years = [];
         const keywords = [];
         const weightedKeywords = {};
+        this.max_year = {};
+        this.min_year = {};
         for (let year of this.years) {
+            this.max_year[year] = 0;
+            this.min_year[year] = 10000;
             const rows = this.table.findRows(year, "Year");
             for (let row of rows) {
                 let authors = row.getString("AuthorNames-Deduped").split(";").concat(row.getString("AuthorNames").split(";"));
@@ -89,7 +93,10 @@ class WordCloud {
                     return value.word === word;
                 });
                 if (index === -1) {
-                    weightedKeywordsPerYear.push({word: word, weight: count / keywords.length});
+                    let weight = count / keywords.length;
+                    this.max_year[year] = Math.max(this.max_year[year] , weight);
+                    this.min_year[year] = Math.min(this.min_year[year] , weight);
+                    weightedKeywordsPerYear.push({word: word, weight: weight});
                 }
             }
             weightedKeywords[year] = weightedKeywordsPerYear;
@@ -144,19 +151,22 @@ class WordCloud {
         this.p5.redraw();
     }
 
-    isOverlapping(x, y, data, drawnWords) {
-        const wordHeight =  this.p5.map(data.weight, 0, 1, 20, 150);
-        this.p5.textSize(wordHeight);
-        const wWidth = this.p5.textWidth(data.text);
+    isOverlapping(x, y, size, width, drawnWords) {
 
         for (let i = 0; i < drawnWords.length; i++) {
             this.p5.textSize(drawnWords[i].h);
             const oWidth = this.p5.textWidth(drawnWords[i].text);
 
-            if (x + wWidth > drawnWords[i].x &&
-                x < drawnWords[i].x + oWidth &&
-                y + drawnWords[i].h * 0.2 > drawnWords[i].y - drawnWords[i].h * 0.7 &&
-                y - wordHeight < drawnWords[i].y) {
+            if(x > drawnWords[i].x && x < drawnWords[i].x + drawnWords[i].w && y > drawnWords[i].y && y < drawnWords[i].h + drawnWords[i].y){
+                return true;
+            }
+            if(x + width > drawnWords[i].x && x + width < drawnWords[i].x + drawnWords[i].w && y > drawnWords[i].y && y < drawnWords[i].h + drawnWords[i].y){
+                return true;
+            }
+            if(x + width > drawnWords[i].x && x + width < drawnWords[i].x + drawnWords[i].w && y + size > drawnWords[i].y && y + size < drawnWords[i].h + drawnWords[i].y){
+                return true;
+            }
+            if(x > drawnWords[i].x && x < drawnWords[i].x + drawnWords[i].w && y + size > drawnWords[i].y && y + size < drawnWords[i].h + drawnWords[i].y){
                 return true;
             }
         }
@@ -168,7 +178,6 @@ class WordCloud {
         p5.rect(0, 0, this.w - 2, this.h - 2, 20);
         p5.stroke(0);
         p5.noFill();
-        p5.translate(this.w / 2, this.h / 2);
         getWords().then(words => {
             p5.textAlign(p5.CENTER);
             let width = 0;
@@ -178,25 +187,19 @@ class WordCloud {
                     continue;
                 }
                 let iterations = 0;
-                const r = this.h / 2;
-                let isInCircles = false;
-                let overlap = false;
+                let overlap = true;
                 let word;
                 do {
                     iterations++;
-                    const size = p5.map(data.weight, 0, 1, 20, 150);
+                    const size = p5.map(data.weight, this.min_year[this.year], this.max_year[this.year], 15, 100);
                     p5.textSize(size);
                     width = p5.textWidth(data.text);
-                    const x = p5.random(-r, r - width);
-                    const d = Math.floor(Math.sqrt(Math.pow(r, 2) - Math.pow(x, 2)));
-                    const y = p5.random(-d + size, d);
+                    const x = p5.random(width + 10 , this.w - width - 10);
+                    const y = p5.random(size + 10, this.h - size - 10);
 
-                    const isInInnerCircle = (Math.pow(x + width, 2) + Math.pow(y - size, 2)) < Math.pow(r, 2);
-                    const isInOuterCircle = (Math.pow(x + width, 2) + Math.pow(y, 2)) < Math.pow(r, 2);
-                    isInCircles = isInInnerCircle && isInOuterCircle;
-                    overlap = this.isOverlapping(x, y, data, drawnWords);
+                    overlap = this.isOverlapping(x, y, size, width, drawnWords);
                     word = new Word(x, y, width, size, data.text, data.weight);
-                } while (iterations < 5000 && (!isInCircles || (drawnWords.length > 0 && overlap)));
+                } while (iterations < 5000 && (overlap));
                 p5.textSize(word.h);
                 p5.text(word.text, word.x, word.y);
                 drawnWords.push(word);
